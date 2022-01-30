@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<HTML>
+	<HEAD>
+		<TITLE>ar&#x8f6c;&#x63a5;&#x677f;</TITLE>
+		<META NAME="author" CONTENT="EWB">
+		<SCRIPT type="text/javascript"><!--
+		   		/*  NOTICE:  (c) National Instruments Corp.
+		*National Instruments Corp. hereby grants you the rights to reproduce,
+		*modify and distribute this file and its contents, and to grant such
+		*rights to other parties subject to the following:  This notice shall
+		*be included in any copy of the Software or any portion thereof.
+		*THE SOFTWARE IS PROVIDED TO YOU AS-IS, WITHOUT WARRANTIES OF ANY KIND,
+		*EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+		*FITNESS FOR A PARTICULAR PURPOSE AND NON- INFRINGEMENT.  IN NO EVENT SHALL
+		*ADOBE BE LIABLE TO YOU OR ANY OTHER PARTY FOR ANY CLAIM, DAMAGES OR OTHER
+		*LIABILITY ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE.
+		*
+		*  Author:  Rodney Draaisma
+		*
+		*/
+		
+		/******************************
+		* Global variables and arrays *
+		******************************/
+
+var Layers;
+var OldLayers;
+var NumOfLayers;
+var ActiveLayer;
+var Highlighted;
+
+var LayerDoc;
+var GraphicsDoc;
+
+var RedrawOnce = false;
+
+function CreateArray(n)
+{
+	this.length = n;
+	return this;
+}
+
+function CreateLayers(n)
+{
+	NumOfLayers = n;
+	Layers = new CreateArray(n);
+	OldLayers = new CreateArray(n);
+}
+
+function Layer(name, state)
+{
+	this.Name = name;
+	this.State = state;
+}
+
+function SetLayer(index, name, state)
+{
+	Layers[index] = new Layer(name, state);
+	OldLayers[index] = new Layer(name, 1);
+}
+
+// get the group this element is in
+function getSVGGroup(TestElement)
+{
+	var Element = TestElement.parentNode; // Get the parent of this first (in case this is a group)
+	var Type =	  Element.nodeName;
+	
+	// get the parent node until the type is a group
+	while (Type !== "g")
+	{
+		Element = Element.parentNode;
+		Type =	  Element.nodeName;
+	}
+	return Element;
+}
+
+function GetLayer(Element)
+{
+	var Group = getSVGGroup(Element);
+	
+	// get the id of this group
+	return Group.getAttribute('id');
+}
+
+function setLayerOn(LayerName)
+{
+	var Element = LayerDoc.getElementById(LayerName + "CHK");
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle.setProperty('visibility', 'visible');
+		}
+		else
+		{
+			Element.style.visibility = 'visible';
+		}
+	}
+	
+	Element = GraphicsDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle.setProperty('visibility', 'visible');
+		}
+		else
+		{
+			Element.style.visibility = 'visible';
+		}
+	}
+}
+
+function setLayerOff(LayerName)
+{
+	var Element = LayerDoc.getElementById(LayerName + "CHK");
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle.setProperty('visibility', 'hidden');
+		}
+		else
+		{
+			Element.style.visibility = 'hidden';
+		}
+	}
+
+	Element = GraphicsDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle.setProperty('visibility', 'hidden');
+		}
+		else
+		{
+			Element.style.visibility = 'hidden';
+		}
+	}
+}
+
+function redrawLayers()
+{
+	// set all the layers on there new states
+	var i = 0;
+	for (i = 0; i < NumOfLayers; i++)
+	{
+		if (Layers[i] !== null && OldLayers[i] !== null)
+		{
+			if (Layers[i].State !== OldLayers[i].State)
+			{
+				OldLayers[i].State = Layers[i].State;
+				if (Layers[i].State === 0)
+				{
+					setLayerOff(Layers[i].Name);
+				}
+				else
+				{
+					setLayerOn(Layers[i].Name);
+				}
+			}
+		}
+	}
+}
+
+function ToggleTheLayer(Layer)
+{
+	// if the group had an id toggle the state of the layer (only on or off possible)
+	if (Layer !== null)
+	{
+		var i = 0;
+		for (i = 0; i < NumOfLayers; i++)
+		{
+			if (Layers[i].Name == Layer)
+			{
+				if (Layers[i].State === 0)
+				{
+					Layers[i].State = 1;
+				}
+				else
+				{
+					Layers[i].State = 0;
+				}
+			}
+		}
+	}
+	redrawLayers();
+}
+
+function initialRedrawLayers()
+{
+	if (!RedrawOnce)
+	{
+		RedrawOnce = typeof(LayerDoc) != 'undefined' && typeof(GraphicsDoc) != 'undefined';
+		if (RedrawOnce)
+		{
+			redrawLayers();
+		}
+	}
+}
+
+function HighlightLayer(LayerName)
+{
+	var Element = LayerDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle().setProperty('filter', 'url(#SelectFilter)');
+		}
+		else
+		{
+			Element.style.filter = 'url(#SelectFilter)';
+		}
+	}
+}
+
+function GraphicHighlight(LayerName)
+{
+	var Element = GraphicsDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle().setProperty('filter', 'url(#SelectFilter)');
+		}
+		else
+		{
+			Element.style.filter = 'url(#SelectFilter)';
+		}
+	}
+
+	Highlighted = LayerName;
+
+	Element = LayerDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle().setProperty('stroke-width', '3');
+		}
+		else
+		{
+			Element.style.setProperty('stroke-width', '3', null);
+		}
+	}
+}
+
+function UnHighlightLayer(LayerName)
+{
+	var Element = LayerDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle().setProperty('filter', 'none');
+		}
+		else
+		{
+			Element.style.filter = 'none';
+		}
+	}
+}
+
+function GraphicUnHighlight(LayerName)
+{
+	var Element = GraphicsDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle().setProperty('filter', 'none');
+		}
+		else
+		{
+			Element.style.filter = 'none';
+		}
+	}
+
+	Element = LayerDoc.getElementById(LayerName);
+	if (Element !== null)
+	{
+		if (Element.getStyle)
+		{
+			Element.getStyle().setProperty('stroke-width', '1');
+		}
+		else		{
+			Element.style.setProperty('stroke-width', '1', null);
+		}
+	}
+}
+
+function LayerActivate(LayerName)
+{
+	var Element = GraphicsDoc.getElementById("Active Layer");
+	if (Element !== null)
+	{
+		ActiveLayer = LayerName;
+		var place = "#" + LayerName;
+		Element.setAttribute('xlink:href', place);
+	}
+}
+
+		// -->
+		</SCRIPT>
+		<SCRIPT type="text/javascript"><!--
+		   /**
+* Some stuff to detect the SVG plugin (from adobe)
+*/
+
+var is_nav = false;var is_nav3 = false;var is_nav4up = false;var is_nav407up = false;var is_nav408up = false;var is_ie = false;var is_ie3 = false;var is_ie4 = false;var is_ie4up = false;var is_ie5 = false;var is_ie5up = false;var is_win = false;var is_win95 = false;var is_win98 = false;var is_win32 = false;var is_winnt = false;var is_mac = false;var is_macPPC = false;var is_macOSX = false;
+function getBrowser()
+{
+	var agt=navigator.userAgent.toLowerCase();
+	var v_maj=parseInt(navigator.appVersion, 10);
+	var v_min=parseFloat(navigator.appVersion);
+
+	is_nav = ((agt.indexOf('mozilla')!=-1)&&(agt.indexOf('spoofer')==-1)&&(agt.indexOf('compatible')==-1)&&(agt.indexOf('webtv')==-1)&&(agt.indexOf('msie')==-1));
+	is_nav3 = (is_nav&&(v_maj==3));
+	is_nav4up = (is_nav&&(v_maj>=4));
+	is_nav407up = (is_nav&&(v_min>=4.07));
+	is_nav408up = (is_nav&&(v_min>=4.08));
+	is_ie = (agt.indexOf("msie")!=-1);
+	is_ie3 = (is_ie&&(v_maj<4));
+	is_ie4 = (is_ie&&(v_maj==4)&&(agt.indexOf("msie 5")==-1));
+	is_ie4up = (is_ie&&(v_maj>=4));
+	is_ie5 = (is_ie&&(v_maj==4)&&(agt.indexOf("msie 5")!=-1));
+	is_ie5up = (is_ie&&!is_ie3&&!is_ie4);
+	is_win = ((agt.indexOf("win")!=-1)||(agt.indexOf("16bit")!=-1));
+	is_win95 = ((agt.indexOf("win95")!=-1)||(agt.indexOf("windows 95")!=-1));
+	is_win98 = ((agt.indexOf("win98")!=-1)||(agt.indexOf("windows 98")!=-1));
+	is_winnt = ((agt.indexOf("winnt")!=-1)||(agt.indexOf("windows nt")!=-1));
+	is_win32 = (is_win95||is_winnt||is_win98||((v_maj>=4)&&(navigator.platform=="Win32"))||(agt.indexOf("win32")!=-1)||(agt.indexOf("32bit")!=-1));
+	is_mac = (agt.indexOf("mac")!=-1);
+	is_macPPC = (is_mac&&((agt.indexOf("ppc")!=-1)||(agt.indexOf("powerpc")!=-1)));
+	is_macOSX = (is_mac&&((agt.indexOf("powerpc")!=-1)&&(agt.indexOf("msie 5.1")!=-1)));
+}
+
+var svgInstallBase = "http://www.adobe.com/svg/viewer/install/";
+var svgInstallPage = svgInstallBase+"auto/";
+var svgInfoPage = "http://www.adobe.com/svg/";
+var svgDownloadPage = svgInstallBase;
+var checkIntervalDays = 30;
+var firstSVG = true; // Ask only once per page even without cookies
+
+function getSVGInstallPage()
+{
+	return svgInstallPage+"?"+location;
+}
+
+function getCheckInterval()
+{
+	return checkIntervalDays*24*60*60*1000;
+}
+
+function isSVGPluginInstalled()
+{
+	return navigator.mimeTypes["image/svg"] || navigator.mimeTypes["Image/svg-xml"] || navigator.mimeTypes["image/svg+xml"];
+}
+function isSVGControlInstalled()
+{
+  try
+  {
+    var o = new ActiveXObject("Adobe.SVGCtl");
+    o = null;
+    return true;
+  }
+  catch(e)
+  {
+    return false;
+  }
+}
+
+function checkSVGViewer()
+{
+	window.askForSVGViewer = false;
+
+	if (window.svgInstalled)
+	{
+		return;
+	}
+	getBrowser();
+
+	if (is_win32 && is_ie4up)
+	{
+		window.svgViewerAvailable = true;
+		window.svgInstalled = isSVGControlInstalled();
+		window.askForSVGViewer = !window.svgInstalled;
+	}
+	else if((is_win32 && is_nav4up) || (is_macPPC && is_nav407up))
+	{
+		window.svgViewerAvailable = true;
+		window.svgInstalled = isSVGPluginInstalled();
+		window.askForSVGViewer = (window.svgInstalled === false) && is_nav408up && navigator.javaEnabled();
+	}
+	else if (is_macPPC && is_ie5up)
+	{
+		window.svgViewerAvailable = true;
+	}
+	else
+	{
+		window.svgInstalled = isSVGControlInstalled();
+	}
+}
+
+function getSVGViewer()
+{
+	if (confirm('A SVG Viewer is not installed. Download now?'))
+	{
+		location = getSVGInstallPage();
+	}
+}
+
+checkSVGViewer();
+
+if (firstSVG)
+{
+	if(window.askForSVGViewer)
+	{
+		getSVGViewer();
+	}
+	firstSVG=false;
+}
+
+
+		// -->
+		</SCRIPT>
+	</HEAD>
+	<FRAMESET cols="200,*">
+		<FRAME name="layers" src="ar&#x8f6c;&#x63a5;&#x677f;layers.svg" frameborder="1">
+		<FRAME name="main" src="ar&#x8f6c;&#x63a5;&#x677f;.svg" frameborder="1">
+	</FRAMESET>
+</HTML>

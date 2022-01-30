@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!-- _uc453d1751f5668ff1a Ultiboard 14.2.0.0 SVG _uc45bfc51fa63d24ef6  -->
+<!--  _uc3901a77e5ff1a  Copyright National Instruments (c)2001-2019. -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN" "http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd"
+[ <!ENTITY CheckMark "
+ <g filter='url(#SelectFilter)' onclick='LayerClickCHK(evt)' onmouseover='OverLayerCHK(evt)' onmouseout='OutLayerCHK(evt)'>
+	 <line x1='2' y1='5' x2='4' y2='9' stroke='#000000' stroke-width='1'/>
+	 <line x1='4' y1='9' x2='8' y2='3' stroke='#000000' stroke-width='1'/>
+	 <line x1='2' y1='6' x2='4' y2='9' stroke='#000000' stroke-width='1'/>
+	 <line x1='4' y1='9' x2='8' y2='3' stroke='#000000' stroke-width='1'/>
+ </g>
+">]>
+<svg height="400" viewBox="0 0 120 252" zoomAndPan="disable"
+xmlns="http://www.w3.org/2000/svg">
+
+<filter id="SelectFilter">
+	<feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+	<feOffset in="blur" dx="1" dy="1" result="offsetBlur"/>
+	<feSpecularLighting in="blur" surfaceScale="10" specularConstant="1" specularExponent="10" lighting-color="#aaaaaa" result="specOut">
+		<fePointLight x="0" y="0" z="20000"/>
+	</feSpecularLighting>
+	<feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+	<feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litPaint"/>
+	<feMerge>
+		<feMergeNode in="offsetBlur"/>
+		<feMergeNode in="litPaint"/>
+	</feMerge>
+</filter>
+
+<script type="text/javascript">
+
+function LayerClick(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.ToggleTheLayer)
+	{
+		if (top.GetLayer)
+			top.ToggleTheLayer(top.GetLayer(evt.target));
+	}
+}
+
+function LayerClickCHK(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.ToggleTheLayer)
+	{
+		if (top.GetLayer)
+			top.ToggleTheLayer(top.GetLayer(evt.target.parentNode.parentNode));
+	}
+}
+
+function ActivateLayer(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.LayerActivate)
+	{
+		if (top.GetLayer)
+			top.LayerActivate(top.GetLayer(evt.target))
+	}
+}
+
+function OverLayer(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.HighlightLayer)
+	{
+		if (top.GetLayer)
+			top.HighlightLayer(top.GetLayer(evt.target));
+	}
+}
+
+function OverLayerCHK(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.HighlightLayer)
+	{
+		if (top.GetLayer)
+			top.HighlightLayer(top.GetLayer(evt.target.parentNode.parentNode));
+	}
+}
+
+function OutLayer(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.UnHighlightLayer)
+	{
+		if (top.GetLayer)
+			top.UnHighlightLayer(top.GetLayer(evt.target));
+	}
+}
+
+function OutLayerCHK(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.UnHighlightLayer)
+	{
+		if (top.GetLayer)
+			top.UnHighlightLayer(top.GetLayer(evt.target.parentNode.parentNode));
+	}
+}
+
+function LayerHighlight(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	if (top.GraphicHighlight)
+	{
+		if (top.GraphicUnHighlight)
+		{
+			var LayerName = top.GetLayer(evt.target);
+
+			if (LayerName != top.Highlighted)
+			{
+				top.GraphicUnHighlight(top.Highlighted);
+				top.GraphicHighlight(LayerName);
+			}
+			else if (LayerName == top.Highlighted)
+			{
+				top.GraphicUnHighlight(top.Highlighted);
+				top.Highlighted = null;
+			}
+		}
+	}
+}
+
+function Init(evt)
+{
+	if (typeof(top) == 'undefined')
+		return;
+
+	top.LayerDoc = evt.target.ownerDocument;
+
+	if (top.InitMain)
+		top.InitMain();
+
+	if (top.CreateLayers)
+		top.CreateLayers(21);
+
+	if (top.SetLayer)
+	{
+		top.SetLayer(0, "Copper_Top", 1);
+		top.SetLayer(1, "_uc_uc451855c42657794dc1", 1);
+		top.SetLayer(2, "_uc_uc451855c42657794dc2", 1);
+		top.SetLayer(3, "Copper_Bottom", 1);
+		top.SetLayer(4, "_uc_uc275597528__uc_uc279817528", 1);
+		top.SetLayer(5, "_uc_uc2677f6846", 1);
+		top.SetLayer(6, "_uc_uc54e1d53705c4298765c42", 1);
+		top.SetLayer(7, "_uc_uc54e1d53705c425e955c42", 1);
+		top.SetLayer(8, "_D_uc_uc44fe1606f98765c42", 1);
+		top.SetLayer(9, "_D_uc_uc44fe1606f5e955c42", 1);
+		top.SetLayer(10, "_uc_uc552a9710a5c4298765c42", 1);
+		top.SetLayer(11, "_uc_uc552a9710a5c425e955c42", 1);
+		top.SetLayer(12, "_uc_uc5963b710a5c4298765c42", 1);
+		top.SetLayer(13, "_uc_uc5963b710a5c425e955c42", 1);
+		top.SetLayer(14, "_uc_uc780f65408524263a9819c98765c42", 1);
+		top.SetLayer(15, "_uc_uc780f65408524263a9819c5e955c42", 1);
+		top.SetLayer(16, "_uc_uc29f207ebf", 1);
+		top.SetLayer(17, "_uc_uc68bbe8ba189c4521968c067e5", 1);
+		top.SetLayer(18, "_uc_uc26ce891ca", 1);
+		top.SetLayer(19, "_uc_uc2673a68b01", 1);
+		top.SetLayer(20, "_uc_uc2673a68b02", 1);
+
+	}
+
+	top.initialRedrawLayers();
+}
+</script>
+
+<g onload="Init(evt)" stroke-width="1" stroke-linecap="round" font-family="Arial Unicode MS, Verdana" font-size="8">
+	<g id="Copper_Top" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="1" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="1" width="10" height="10" stroke="#000000" fill="#008000"/>
+		<text x="29" y="10" fill="#000000">
+			Copper Top
+		</text>
+		<g id="Copper_TopCHK" transform="translate(3, 1)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc451855c42657794dc1" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="13" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="13" width="10" height="10" stroke="#000000" fill="#009999"/>
+		<text x="29" y="22" fill="#000000">
+			_uc_uc451855c42657794dc1
+		</text>
+		<g id="_uc_uc451855c42657794dc1CHK" transform="translate(3, 13)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc451855c42657794dc2" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="25" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="25" width="10" height="10" stroke="#000000" fill="#cc6699"/>
+		<text x="29" y="34" fill="#000000">
+			_uc_uc451855c42657794dc2
+		</text>
+		<g id="_uc_uc451855c42657794dc2CHK" transform="translate(3, 25)">&CheckMark;</g>
+	</g>
+	<g id="Copper_Bottom" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="37" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="37" width="10" height="10" stroke="#000000" fill="#800000"/>
+		<text x="29" y="46" fill="#000000">
+			Copper Bottom
+		</text>
+		<g id="Copper_BottomCHK" transform="translate(3, 37)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc275597528__uc_uc279817528" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="49" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="49" width="10" height="10" stroke="#000000" fill="#cc99cc"/>
+		<text x="29" y="58" fill="#000000">
+			_uc_uc275597528/_uc_uc279817528
+		</text>
+		<g id="_uc_uc275597528__uc_uc279817528CHK" transform="translate(3, 49)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc2677f6846" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="61" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="61" width="10" height="10" stroke="#000000" fill="#ffff00"/>
+		<text x="29" y="70" fill="#000000">
+			_uc_uc2677f6846
+		</text>
+		<g id="_uc_uc2677f6846CHK" transform="translate(3, 61)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc54e1d53705c4298765c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="73" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="73" width="10" height="10" stroke="#000000" fill="#00ffff"/>
+		<text x="29" y="82" fill="#000000">
+			_uc_uc54e1d53705c4298765c42
+		</text>
+		<g id="_uc_uc54e1d53705c4298765c42CHK" transform="translate(3, 73)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc54e1d53705c425e955c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="85" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="85" width="10" height="10" stroke="#000000" fill="#ff14ff"/>
+		<text x="29" y="94" fill="#000000">
+			_uc_uc54e1d53705c425e955c42
+		</text>
+		<g id="_uc_uc54e1d53705c425e955c42CHK" transform="translate(3, 85)">&CheckMark;</g>
+	</g>
+	<g id="_D_uc_uc44fe1606f98765c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="97" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="97" width="10" height="10" stroke="#000000" fill="#ff0000"/>
+		<text x="29" y="106" fill="#000000">
+			3D_uc_uc44fe1606f98765c42
+		</text>
+		<g id="_D_uc_uc44fe1606f98765c42CHK" transform="translate(3, 97)">&CheckMark;</g>
+	</g>
+	<g id="_D_uc_uc44fe1606f5e955c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="109" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="109" width="10" height="10" stroke="#000000" fill="#00ff00"/>
+		<text x="29" y="118" fill="#000000">
+			3D_uc_uc44fe1606f5e955c42
+		</text>
+		<g id="_D_uc_uc44fe1606f5e955c42CHK" transform="translate(3, 109)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc552a9710a5c4298765c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="121" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="121" width="10" height="10" stroke="#000000" fill="#666600"/>
+		<text x="29" y="130" fill="#000000">
+			_uc_uc552a9710a5c4298765c42
+		</text>
+		<g id="_uc_uc552a9710a5c4298765c42CHK" transform="translate(3, 121)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc552a9710a5c425e955c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="133" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="133" width="10" height="10" stroke="#000000" fill="#669900"/>
+		<text x="29" y="142" fill="#000000">
+			_uc_uc552a9710a5c425e955c42
+		</text>
+		<g id="_uc_uc552a9710a5c425e955c42CHK" transform="translate(3, 133)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc5963b710a5c4298765c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="145" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="145" width="10" height="10" stroke="#000000" fill="#cc00ff"/>
+		<text x="29" y="154" fill="#000000">
+			_uc_uc5963b710a5c4298765c42
+		</text>
+		<g id="_uc_uc5963b710a5c4298765c42CHK" transform="translate(3, 145)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc5963b710a5c425e955c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="157" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="157" width="10" height="10" stroke="#000000" fill="#cc0099"/>
+		<text x="29" y="166" fill="#000000">
+			_uc_uc5963b710a5c425e955c42
+		</text>
+		<g id="_uc_uc5963b710a5c425e955c42CHK" transform="translate(3, 157)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc780f65408524263a9819c98765c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="169" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="169" width="10" height="10" stroke="#000000" fill="#cc00ff"/>
+		<text x="29" y="178" fill="#000000">
+			_uc_uc780f65408524263a9819c98765c42
+		</text>
+		<g id="_uc_uc780f65408524263a9819c98765c42CHK" transform="translate(3, 169)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc780f65408524263a9819c5e955c42" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="181" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="181" width="10" height="10" stroke="#000000" fill="#cc0099"/>
+		<text x="29" y="190" fill="#000000">
+			_uc_uc780f65408524263a9819c5e955c42
+		</text>
+		<g id="_uc_uc780f65408524263a9819c5e955c42CHK" transform="translate(3, 181)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc29f207ebf" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="193" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="193" width="10" height="10" stroke="#000000" fill="#ffff00"/>
+		<text x="29" y="202" fill="#000000">
+			_uc_uc29f207ebf
+		</text>
+		<g id="_uc_uc29f207ebfCHK" transform="translate(3, 193)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc68bbe8ba189c4521968c067e5" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="205" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="205" width="10" height="10" stroke="#000000" fill="#ff0000"/>
+		<text x="29" y="214" fill="#000000">
+			_uc_uc68bbe8ba189c4521968c067e5
+		</text>
+		<g id="_uc_uc68bbe8ba189c4521968c067e5CHK" transform="translate(3, 205)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc26ce891ca" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="217" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="217" width="10" height="10" stroke="#000000" fill="#ccff66"/>
+		<text x="29" y="226" fill="#000000">
+			_uc_uc26ce891ca
+		</text>
+		<g id="_uc_uc26ce891caCHK" transform="translate(3, 217)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc2673a68b01" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="229" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="229" width="10" height="10" stroke="#000000" fill="#cbcbcb"/>
+		<text x="29" y="238" fill="#000000">
+			_uc_uc2673a68b01
+		</text>
+		<g id="_uc_uc2673a68b01CHK" transform="translate(3, 229)">&CheckMark;</g>
+	</g>
+	<g id="_uc_uc2673a68b02" onclick="ActivateLayer(evt)" onmouseover="OverLayer(evt)" onmouseout="OutLayer(evt)">
+		<rect onclick="LayerClick(evt)" x="3" y="241" width="10" height="10" stroke="#000000" fill="#ffffff"/>
+		<rect onclick="LayerHighlight(evt)" x="14" y="241" width="10" height="10" stroke="#000000" fill="#b2b2b2"/>
+		<text x="29" y="250" fill="#000000">
+			_uc_uc2673a68b02
+		</text>
+		<g id="_uc_uc2673a68b02CHK" transform="translate(3, 241)">&CheckMark;</g>
+	</g>
+</g>
+</svg>
