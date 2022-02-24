@@ -19,6 +19,6 @@ DRILLFILE                              LAMINATION
 AR_uc38f6c63a5677f - Copper Top-Copper Bottom.drl   Copper Top .. Copper Bottom
 
 TOOL     SIZE   TYPE  COUNT
-   1 0.007874    PTH    142
+   1 0.007874    PTH    118
    2 0.023622    PTH     20
    3 0.027559    PTH      4
